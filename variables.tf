@@ -138,3 +138,94 @@ variable "redeploy_on_apply" {
   description = "Updates the service to the latest task definition on each apply"
   default     = false
 }
+
+variable "database_name" {
+  type        = string
+  description = "name of the database"
+}
+
+variable "database_user" {
+  type        = string
+  description = "db username"
+}
+
+variable "database_password" {
+  type = string
+  description = "db password"
+}
+
+variable "database_port" {
+  type = number
+  description = "port to run DB on"
+}
+
+variable "dns_zone_id" {
+  type = string
+  description = "id of dns zone in route 53 where a new dns record created for db host name"
+}
+
+variable "host_name" {
+  type = string
+  description = "db host name"
+}
+
+variable "ca_cert_identifier" {
+  type = string
+  description = "identifier of CA certificate for db instance"
+}
+
+variable "multi_az" {
+  type = bool
+  description = "if multi az support"
+}
+
+variable "storage_type" {
+  type = string
+  description = "one of 'standard', 'gp2', 'gp3', 'io3'"
+}
+
+variable "allocated_storage" {
+  type = number
+  description = "allocated storage in GPs. required unless snapshot_identifier or replicate_source_db provided"
+}
+
+variable "storage_encrypted" {
+  type = bool
+  description = "if db is encrypted. default false"
+}
+
+variable "engine" {
+  type = string
+  description = "db engine version, depends on type"
+}
+
+variable "engine_version" {
+  type = string
+  description = "db engine version, depends on type"
+}
+
+variable "major_engine_version" {
+  type = string
+  description = "db major engine version, depends on type"
+}
+
+variable "instance_class" {
+  type = string
+  description = "class of rds"
+}
+
+variable "db_parameter_group" {
+  type = string
+  description = "db parameter group family name"
+}
+
+variable "option_group_name" {
+  type = string
+  description = "name of db option group"
+}
+
+variable "publicly_accessible" {
+  type = bool
+  default = false
+  description = "publicly accessible"
+}

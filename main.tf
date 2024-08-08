@@ -108,51 +108,51 @@ module "rds_instance" {
     source = "cloudposse/rds/aws"
     # Cloud Posse recommends pinning every module to a specific version
     # version = "x.x.x"
-    namespace                   = "eg"
-    stage                       = "prod"
-    name                        = "app"
-    dns_zone_id                 = "Z89FN1IW975KPE"
-    host_name                   = "db"
-    security_group_ids          = ["sg-xxxxxxxx"]
-    ca_cert_identifier          = "rds-ca-2019"
-    allowed_cidr_blocks         = ["XXX.XXX.XXX.XXX/32"]
-    database_name               = "wordpress"
-    database_user               = "admin"
-    database_password           = "xxxxxxxxxxxx"
-    database_port               = 3306
-    multi_az                    = true
-    storage_type                = "gp2"
-    allocated_storage           = 100
-    storage_encrypted           = true
-    engine                      = "mysql"
-    engine_version              = "5.7.17"
-    major_engine_version        = "5.7"
-    instance_class              = "db.t2.medium"
-    db_parameter_group          = "mysql5.7"
-    option_group_name           = "mysql-options"
-    publicly_accessible         = false
-    subnet_ids                  = ["sb-xxxxxxxxx", "sb-xxxxxxxxx"]
-    vpc_id                      = "vpc-xxxxxxxx"
-    snapshot_identifier         = "rds:production-2015-06-26-06-05"
+    namespace                   = "sl"
+    stage                       = var.stage
+    name                        = var.name
+    dns_zone_id                 = var.dns_zone_id // tbd
+    host_name                   = var.host_name // tbd
+    security_group_ids          = [module.vpc.vpc_default_security_group_id]
+    ca_cert_identifier          = var.ca_cert_identifier // tbd
+    allowed_cidr_blocks         = var.vpc_cidr_block
+    database_name               = var.database_name
+    database_user               = var.database_user
+    database_password           = var.database_password
+    database_port               = var.database_port
+    multi_az                    = var.multi_az
+    storage_type                = var.storage_type
+    allocated_storage           = var.allocated_storage
+    storage_encrypted           = var.storage_encrypted
+    engine                      = var.engine
+    engine_version              = var.engine_version
+    major_engine_version        = var.major_engine_version
+    instance_class              = var.instance_class
+    db_parameter_group          = var.db_parameter_group
+    option_group_name           = var.option_group_name
+    publicly_accessible         = var.publicly_accessible
+    subnet_ids                  = module.subnets.public_subnet_ids
+    vpc_id                      = module.vpc.vpc_id
+    # snapshot_identifier         = "rds:production-2015-06-26-06-05"
     auto_minor_version_upgrade  = true
     allow_major_version_upgrade = false
     apply_immediately           = false
     maintenance_window          = "Mon:03:00-Mon:04:00"
     skip_final_snapshot         = false
     copy_tags_to_snapshot       = true
-    backup_retention_period     = 7
+    backup_retention_period     = 70
     backup_window               = "22:00-03:00"
 
     db_parameter = [
-      { name  = "myisam_sort_buffer_size"   value = "1048576" },
-      { name  = "sort_buffer_size"          value = "2097152" }
+      { name  = "myisam_sort_buffer_size",   value = "1048576" },
+      { name  = "sort_buffer_size",          value = "2097152" }
     ]
 
     db_options = [
       { option_name = "MARIADB_AUDIT_PLUGIN"
           option_settings = [
-            { name = "SERVER_AUDIT_EVENTS"           value = "CONNECT" },
-            { name = "SERVER_AUDIT_FILE_ROTATIONS"   value = "37" }
+            { name = "SERVER_AUDIT_EVENTS",           value = "CONNECT" },
+            { name = "SERVER_AUDIT_FILE_ROTATIONS",   value = "37" }
           ]
       }
     ]
