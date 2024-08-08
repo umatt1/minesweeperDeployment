@@ -115,7 +115,7 @@ module "rds_instance" {
     host_name                   = var.host_name // tbd
     security_group_ids          = [module.vpc.vpc_default_security_group_id]
     ca_cert_identifier          = var.ca_cert_identifier // tbd
-    allowed_cidr_blocks         = var.vpc_cidr_block
+    allowed_cidr_blocks         = [var.vpc_cidr_block]
     database_name               = var.database_name
     database_user               = var.database_user
     database_password           = var.database_password
@@ -145,7 +145,8 @@ module "rds_instance" {
 
     db_parameter = [
       { name  = "myisam_sort_buffer_size",   value = "1048576" },
-      { name  = "sort_buffer_size",          value = "2097152" }
+      { name  = "sort_buffer_size",          value = "2097152" },
+      { name = "apply_method", value = "immediate" }
     ]
 
     db_options = [
