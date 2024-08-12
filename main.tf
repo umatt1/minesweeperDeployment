@@ -111,7 +111,7 @@ module "rds_instance" {
   namespace            = "sl"
   stage                = var.stage
   name                 = var.name
-  dns_zone_id          = var.dns_zone_id // tbd
+  # dns_zone_id          = var.dns_zone_id // tbd
   host_name            = var.host_name   // tbd
   security_group_ids   = [module.vpc.vpc_default_security_group_id]
   ca_cert_identifier   = var.ca_cert_identifier // tbd
@@ -140,7 +140,7 @@ module "rds_instance" {
   maintenance_window          = "Mon:03:00-Mon:04:00"
   skip_final_snapshot         = false
   copy_tags_to_snapshot       = true
-  backup_retention_period     = 70
+  backup_retention_period     = 35
   backup_window               = "22:00-03:00"
 
 }
