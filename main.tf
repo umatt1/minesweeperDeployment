@@ -143,43 +143,4 @@ module "rds_instance" {
   backup_retention_period     = 70
   backup_window               = "22:00-03:00"
 
-  db_parameter = [
-    { name = "myisam_sort_buffer_size", value = "1048576" },
-    { name = "sort_buffer_size", value = "2097152" },
-    { name = "apply_method", value = "immediate" },
-    {
-      name = "db_security_group_memberships", value = [module.vpc.vpc_default_security_group_id]
-    },
-    {
-      name = "port", value = "5432"
-    },
-    {
-      name = "vpc_security_group_memberships", value = [module.vpc.vpc_default_security_group_id]
-    },
-    {
-      name = "version", value = "16.4"
-    }
-  ]
-
-  db_options = [
-    { option_name = "MARIADB_AUDIT_PLUGIN"
-      option_settings = [
-        { name = "SERVER_AUDIT_EVENTS", value = "CONNECT" },
-        { name = "SERVER_AUDIT_FILE_ROTATIONS", value = "37" }
-      ]
-    },
-    {
-      option_name = "db_security_group_memberships", value = [module.vpc.vpc_default_security_group_id]
-    },
-    {
-      option_name = "port", value = "5432"
-    },
-    {
-      option_name = "vpc_security_group_memberships", value = [module.vpc.vpc_default_security_group_id]
-    },
-    {
-      option_name = "version", value = "16.4"
-    }
-
-  ]
 }
