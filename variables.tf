@@ -58,14 +58,6 @@ variable "container_essential" {
   description = "Determines whether all other containers in a task are stopped, if this container fails or stops for any reason. Due to how Terraform type casts booleans in json it is required to double quote this value"
 }
 
-variable "container_environment" {
-  type = list(object({
-    name  = string
-    value = string
-  }))
-  description = "The environment variables to pass to the container. This is a list of maps"
-}
-
 variable "container_readonly_root_filesystem" {
   type        = bool
   description = "Determines whether a container is given read-only access to its root filesystem. Due to how Terraform type casts booleans in json it is required to double quote this value"

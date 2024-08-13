@@ -92,3 +92,8 @@ output "task_definition_revision" {
   description = "ECS task definition revision"
   value       = module.ecs_alb_service_task.task_definition_revision
 }
+
+output "rds_endpoint" {
+  description = "RDS endpoint"
+  value       = module.rds_instance.instance_endpoint
+}

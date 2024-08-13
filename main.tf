@@ -49,8 +49,17 @@ module "container_definition" {
   container_cpu                = var.container_cpu
   essential                    = var.container_essential
   readonly_root_filesystem     = var.container_readonly_root_filesystem
-  environment                  = var.container_environment
-  port_mappings                = var.container_port_mappings
+  environment = [
+    { name  = "DB_PASSWORD"
+      value = var.database_password
+    },
+    { name = "DB_URL"
+    value = "jdbc:postgresql://${module.rds_instance.instance_endpoint}/sweepledb" },
+    { name = "DB_USERNAME",
+    value = var.database_user }
+
+  ]
+  port_mappings = var.container_port_mappings
 }
 
 module "test_policy" {
@@ -108,11 +117,11 @@ module "rds_instance" {
   source = "cloudposse/rds/aws"
   # Cloud Posse recommends pinning every module to a specific version
   # version = "x.x.x"
-  namespace            = "sl"
-  stage                = var.stage
-  name                 = var.name
+  namespace = "sl"
+  stage     = var.stage
+  name      = var.name
   # dns_zone_id          = var.dns_zone_id // tbd
-  host_name            = var.host_name   // tbd
+  host_name            = var.host_name // tbd
   security_group_ids   = [module.vpc.vpc_default_security_group_id]
   ca_cert_identifier   = var.ca_cert_identifier // tbd
   allowed_cidr_blocks  = [var.vpc_cidr_block]
