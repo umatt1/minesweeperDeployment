@@ -49,16 +49,11 @@ module "container_definition" {
   container_cpu                = var.container_cpu
   essential                    = var.container_essential
   readonly_root_filesystem     = var.container_readonly_root_filesystem
-  environment = [
-    { name  = "DB_PASSWORD"
-      value = var.database_password
-    },
-    { name = "DB_URL"
-    value = "jdbc:postgresql://${module.rds_instance.instance_endpoint}/sweepledb" },
-    { name = "DB_USERNAME",
-    value = var.database_user }
-
-  ]
+  map_environment = {
+    "DB_PASSWORD" = var.database_password
+    "DB_URL" = "jdbc:postgresql://${module.rds_instance.instance_endpoint}/sweepledb"
+    "DB_USERNAME" = var.database_user
+  }
   port_mappings = var.container_port_mappings
 }
 
@@ -147,7 +142,7 @@ module "rds_instance" {
   allow_major_version_upgrade = false
   apply_immediately           = false
   maintenance_window          = "Mon:03:00-Mon:04:00"
-  skip_final_snapshot         = false
+  skip_final_snapshot         = true
   copy_tags_to_snapshot       = true
   backup_retention_period     = 35
   backup_window               = "22:00-03:00"
