@@ -51,13 +51,25 @@ module "container_definition" {
   container_cpu                = var.container_cpu
   essential                    = var.container_essential
   readonly_root_filesystem     = var.container_readonly_root_filesystem
+
   map_environment = {
     "DB_PASSWORD" = var.database_password
     "DB_URL"      = "jdbc:postgresql://${module.rds_instance.instance_endpoint}/sweepledb"
     "DB_USERNAME" = var.database_user
   }
+
   port_mappings = var.container_port_mappings
+
+  log_configuration = {
+    log_driver = "awslogs"
+    options = {
+      "awslogs-group"         = "/ecs/${var.container_name}"
+      "awslogs-region"        = var.region
+      "awslogs-stream-prefix" = var.container_name
+    }
+  }
 }
+
 
 module "ecs_policy" {
   source  = "cloudposse/iam-policy/aws"
