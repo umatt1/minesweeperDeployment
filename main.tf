@@ -60,14 +60,14 @@ module "container_definition" {
 
   port_mappings = var.container_port_mappings
 
-  log_configuration = {
-    log_driver = "awslogs"
-    options = {
-      "awslogs-group"         = "/ecs/${var.container_name}"
-      "awslogs-region"        = var.region
-      "awslogs-stream-prefix" = var.container_name
-    }
+log_configuration = {
+  logDriver = "json-file"
+  options = {
+    "max-size" = "10m"
+    "max-file" = "3"
   }
+  secretOptions = null
+}
 }
 
 
