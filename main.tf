@@ -1,3 +1,5 @@
+// ECS cluster tied to RDS with ALB
+
 provider "aws" {
   region = var.region
 }
@@ -51,34 +53,66 @@ module "container_definition" {
   readonly_root_filesystem     = var.container_readonly_root_filesystem
   map_environment = {
     "DB_PASSWORD" = var.database_password
-    "DB_URL" = "jdbc:postgresql://${module.rds_instance.instance_endpoint}/sweepledb"
+    "DB_URL"      = "jdbc:postgresql://${module.rds_instance.instance_endpoint}/sweepledb"
     "DB_USERNAME" = var.database_user
   }
   port_mappings = var.container_port_mappings
 }
 
-module "test_policy" {
+module "ecs_policy" {
   source  = "cloudposse/iam-policy/aws"
   version = "0.4.0"
 
-  name       = "policy"
-  attributes = ["test"]
+  name       = "ecs_policy"
+  attributes = ["cluster"]
 
   iam_policy_enabled = true
-  description        = "Test policy"
+  description        = "Policy for the ECS instances"
 
   iam_policy_statements = [
     {
-      sid        = "DummyStatement"
-      effect     = "Allow"
-      actions    = ["none:null"]
-      resources  = ["*"]
-      conditions = []
+      sid    = "SecretsManagerDbCredentialsAccess"
+      effect = "Allow"
+      actions = [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:PutResourcePolicy",
+        "secretsmanager:PutSecretValue",
+        "secretsmanager:DeleteSecret",
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:TagResource"
+      ]
+      resources = ["arn:aws:secretsmanager:*:*:secret:rds-db-credentials/*"]
+    },
+    {
+      sid    = "RDSDataServiceAccess"
+      effect = "Allow"
+      actions = [
+        "dbqms:CreateFavoriteQuery",
+        "dbqms:DescribeFavoriteQueries",
+        "dbqms:UpdateFavoriteQuery",
+        "dbqms:DeleteFavoriteQueries",
+        "dbqms:GetQueryString",
+        "dbqms:CreateQueryHistory",
+        "dbqms:DescribeQueryHistory",
+        "dbqms:UpdateQueryHistory",
+        "dbqms:DeleteQueryHistory",
+        "rds-data:ExecuteSql",
+        "rds-data:ExecuteStatement",
+        "rds-data:BatchExecuteStatement",
+        "rds-data:BeginTransaction",
+        "rds-data:CommitTransaction",
+        "rds-data:RollbackTransaction",
+        "secretsmanager:CreateSecret",
+        "secretsmanager:ListSecrets",
+        "secretsmanager:GetRandomPassword",
+        "tag:GetResources"
+      ]
+      resources = ["*"]
     }
   ]
-
   context = module.this.context
 }
+
 
 module "ecs_alb_service_task" {
   source                             = "cloudposse/ecs-alb-service-task/aws"
@@ -102,8 +136,8 @@ module "ecs_alb_service_task" {
   ecs_service_enabled                = var.ecs_service_enabled
   force_new_deployment               = var.force_new_deployment
   redeploy_on_apply                  = var.redeploy_on_apply
-  task_policy_arns                   = [module.test_policy.policy_arn]
-  task_exec_policy_arns_map          = { test = module.test_policy.policy_arn }
+  task_policy_arns                   = [module.ecs_policy.policy_arn]
+  task_exec_policy_arns_map          = { test = module.ecs_policy.policy_arn }
 
   context = module.this.context
 }
