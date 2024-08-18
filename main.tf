@@ -194,3 +194,28 @@ module "rds_instance" {
   backup_window               = "22:00-03:00"
 
 }
+
+module "cloudwatch_log" {
+  source = "cloudposse/cloudwatch-logs/aws"
+
+  name = "sg-test/ecs/${var.container_name}"
+
+  stream_names = [var.container_name]
+  
+  /*
+    log_configuration = {
+    logDriver = "awslogs"
+    options = {
+      "awslogs-group"         = "/ecs/${var.container_name}"
+      "awslogs-region"        = var.region
+      "awslogs-stream-prefix" = var.container_name
+    }
+  }
+  */
+
+namespace = "sg"
+
+stage = "test"
+
+context = module.this.context
+}
