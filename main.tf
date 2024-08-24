@@ -63,7 +63,7 @@ module "container_definition" {
   log_configuration = {
     logDriver = "awslogs"
     options = {
-      "awslogs-group"         = "/ecs/${var.container_name}"
+      "awslogs-group"         = "sl-test-ecs/${var.container_name}"
       "awslogs-region"        = var.region
       "awslogs-stream-prefix" = var.container_name
     }
@@ -195,27 +195,17 @@ module "rds_instance" {
 
 }
 
+# Group for logging
 module "cloudwatch_log" {
   source = "cloudposse/cloudwatch-logs/aws"
 
-  name = "sg-test/ecs/${var.container_name}"
+  name = "ecs/${var.container_name}"
 
   stream_names = [var.container_name]
-  
-  /*
-    log_configuration = {
-    logDriver = "awslogs"
-    options = {
-      "awslogs-group"         = "/ecs/${var.container_name}"
-      "awslogs-region"        = var.region
-      "awslogs-stream-prefix" = var.container_name
-    }
-  }
-  */
 
-namespace = "sg"
+  namespace = "sl"
 
-stage = "test"
+  stage = "test"
 
-context = module.this.context
+  context = module.this.context
 }
