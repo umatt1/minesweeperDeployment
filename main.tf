@@ -150,6 +150,9 @@ module "ecs_alb_service_task" {
   redeploy_on_apply                  = var.redeploy_on_apply
   task_policy_arns                   = [module.ecs_policy.policy_arn]
   task_exec_policy_arns_map          = { test = module.ecs_policy.policy_arn }
+  runtime_platform = [{
+    cpu_architecture = "ARM64"
+  }]
 
   context = module.this.context
 }
