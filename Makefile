@@ -3,6 +3,7 @@ prod_env := infrastructure/environments/prod
 test_env := infrastructure/environments/test
 dev_env := infrastructure/environments/dev
 test_runner := infrastructure/test
+var-file := .tfvars
 
 $(prod_env)/.terraform:
 	cd ./$(prod_env); terraform init
