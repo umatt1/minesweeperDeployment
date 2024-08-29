@@ -16,12 +16,12 @@ source_profile = ${var.local_user_name}
 EOF
 }
 
-output "cli_credentials" {
-  description = "the credentials to set locally for the user"
-  value = <<EOF
+# output "cli_credentials" {
+#   description = "the credentials to set locally for the user"
+#   value = <<EOF
 
-[${var.local_user_name}]
-aws_access_key_id = ${aws_iam_access_key.local_dev_user.id}
-aws_secret_access_key = ${aws_iam_access_key.local_dev_user.secret}
-EOF
-}
+# [${var.local_user_name}]
+# aws_access_key_id = ${aws_iam_access_key.local_dev_user.id}
+# aws_secret_access_key = ${aws_iam_access_key.local_dev_user.secret}
+# EOF
+# }
