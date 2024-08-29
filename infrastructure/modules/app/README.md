@@ -13,7 +13,7 @@ No provider.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| availability\_zones | array of aws availability zones of the provided region | `list(string)` | <pre>[<br>  "us-west-2a",<br>  "us-west-2b"<br>]</pre> | no |
+| availability\_zones | array of aws availability zones of the provided region | `list(string)` | <pre>[<br>  "us-east-2a",<br>  "us-east-2b"<br>]</pre> | no |
 | client\_container\_port | the port that the client serves from | `string` | `80` | no |
 | client\_image | image name of the client app | `string` | `"brietsparks/guestbook-client"` | no |
 | dynamo\_read\_capacity | the dynamo read throughput | `string` | `15` | no |
@@ -21,7 +21,7 @@ No provider.
 | environment | the environment | `string` | n/a | yes |
 | local\_user\_name | the name of the IAM user for local development | `string` | `"local_dev_user"` | no |
 | profile | an aws profile to act on behalf of terraform | `string` | n/a | yes |
-| region | an aws region | `string` | `"us-west-2"` | no |
+| region | an aws region | `string` | `"us-east-2"` | no |
 | server\_container\_port | the port that the server serves from | `string` | `80` | no |
 | server\_image | image name of the server app | `string` | `"brietsparks/guestbook-server"` | no |
 

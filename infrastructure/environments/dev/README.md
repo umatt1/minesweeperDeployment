@@ -19,7 +19,7 @@
 | dynamo\_write\_capacity | the dynamo write throughput | `string` | `15` | no |
 | local\_user\_name | the name of the IAM user for local development | `string` | `"local_dev_user"` | no |
 | profile | an aws profile to act on behalf of terraform | `string` | n/a | yes |
-| region | an aws region | `string` | `"us-west-2"` | no |
+| region | an aws region | `string` | `"us-east-2"` | no |
 
 ## Outputs
 

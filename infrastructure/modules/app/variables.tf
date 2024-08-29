@@ -17,13 +17,13 @@ variable "environment" {
 variable "region" {
   type        = string
   description = "an aws region"
-  default     = "us-west-2"
+  default     = "us-east-2"
 }
 
 variable "availability_zones" {
   type        = list(string)
   description = "array of aws availability zones of the provided region"
-  default     = ["us-west-2a", "us-west-2b"]
+  default     = ["us-east-2a", "us-east-2b"]
 }
 
 variable "server_image" {

@@ -12,7 +12,7 @@ variable "profile" {
 variable "region" {
   type        = string
   description = "an aws region"
-  default     = "us-west-2"
+  default     = "us-east-2"
 }
 
 variable "local_user_name" {
