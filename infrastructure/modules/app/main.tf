@@ -62,3 +62,4 @@ module "ecs" {
   vpc_id = module.vpc.vpc_id
   dynamo_table_name = module.db.table_name
 }
+

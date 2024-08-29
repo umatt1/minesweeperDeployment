@@ -28,3 +28,4 @@
 | cli\_config | the config to set locally for the user and role |
 | cli\_credentials | the credentials to set locally for the user |
 | table\_name | the DynamoDB table name |
+

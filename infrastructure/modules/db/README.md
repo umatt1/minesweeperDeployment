@@ -26,3 +26,4 @@
 |------|-------------|
 | role\_arn | the arn of the role to be assumed when accessing the database |
 | table\_name | the DynamoDB table name |
+

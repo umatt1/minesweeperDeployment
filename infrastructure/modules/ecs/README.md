@@ -32,3 +32,4 @@
 | Name | Description |
 |------|-------------|
 | alb\_dns\_name | the DNS name of the load balancer |
+

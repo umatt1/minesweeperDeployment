@@ -6,11 +6,6 @@ variable "profile" {
   description = "an aws profile to act on behalf of terraform"
 }
 
-variable "environment" {
-  type = string
-  description = "the environment"
-}
-
 //
 // optional
 //
@@ -48,12 +43,6 @@ variable "client_container_port" {
   type        = string
   description = "the port that the client serves from"
   default     = 80
-}
-
-variable "local_user_name" {
-  type = string
-  description = "the name of the IAM user for local development"
-  default = "local_dev_user"
 }
 
 variable "dynamo_read_capacity" {
