@@ -15,14 +15,20 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| dev\_user\_arn | the arn of the IAM user for local development | `string` | `""` | no |
+| client\_container\_port | the port that the client serves from | `string` | n/a | yes |
+| client\_image | image name of the client app | `string` | n/a | yes |
+| dynamo\_table\_name | the DynamoDB table that the server talks to | `string` | n/a | yes |
 | environment | the environment | `string` | n/a | yes |
-| read\_capacity | the dynamo read throughput | `string` | n/a | yes |
-| write\_capacity | the dynamo write throughput | `string` | n/a | yes |
+| private\_subnets | a list of cidr ranges of the private subnets to run the ECS tasks in | `list(string)` | n/a | yes |
+| public\_subnets | a list of cidr ranges of the public subnets for the load balancer | `list(string)` | n/a | yes |
+| region | an aws region | `string` | n/a | yes |
+| server\_container\_port | the port that the server serves from | `string` | n/a | yes |
+| server\_image | image name of the server app | `string` | n/a | yes |
+| server\_task\_role\_arn | the role arn for the server ECS task | `string` | n/a | yes |
+| vpc\_id | the id of the vpc to run the ECS cluster in | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| role\_arn | the arn of the role to be assumed when accessing the database |
-| table\_name | the DynamoDB table name |
+| alb\_dns\_name | the DNS name of the load balancer |
