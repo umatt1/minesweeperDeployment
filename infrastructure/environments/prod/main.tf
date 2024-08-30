@@ -1,7 +1,7 @@
 module "guestbook" {
   source = "../../modules/app"
   environment = "prod"
-  profile = var.profile
+  #profile = var.profile
   region = var.region
   availability_zones = var.availability_zones
   server_image = var.server_image

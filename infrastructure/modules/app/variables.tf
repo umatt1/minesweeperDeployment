@@ -1,10 +1,10 @@
 //
 // required
 //
-variable "profile" {
-  type        = string
-  description = "an aws profile to act on behalf of terraform"
-}
+# variable "profile" {
+#   type        = string
+#   description = "an aws profile to act on behalf of terraform"
+# }
 
 variable "environment" {
   type = string

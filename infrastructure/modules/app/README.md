@@ -2,8 +2,8 @@
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 0.12.0 |
-| aws | ~> 2.0 |
+| terraform | ~> 1.7.4 |
+| aws | >= 2.0 |
 
 ## Providers
 
@@ -20,7 +20,6 @@ No provider.
 | dynamo\_write\_capacity | the dynamo write throughput | `string` | `15` | no |
 | environment | the environment | `string` | n/a | yes |
 | local\_user\_name | the name of the IAM user for local development | `string` | `"local_dev_user"` | no |
-| profile | an aws profile to act on behalf of terraform | `string` | n/a | yes |
 | region | an aws region | `string` | `"us-east-2"` | no |
 | server\_container\_port | the port that the server serves from | `string` | `80` | no |
 | server\_image | image name of the server app | `string` | `"brietsparks/guestbook-server"` | no |
