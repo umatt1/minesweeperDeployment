@@ -56,6 +56,7 @@ variable "local_user_name" {
   default = "local_dev_user"
 }
 
+# todo: update me to postgres
 variable "dynamo_read_capacity" {
   type        = string
   description = "the dynamo read throughput"

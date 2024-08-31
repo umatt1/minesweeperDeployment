@@ -3,6 +3,7 @@ variable "environment" {
   description = "the environment"
 }
 
+# todo: update me to postgres
 variable "read_capacity" {
   type        = string
   description = "the dynamo read throughput"

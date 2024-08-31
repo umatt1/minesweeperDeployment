@@ -32,7 +32,7 @@ module "nat" {
   }
 }
 
-
+# todo: update me to rds postgres
 module "db" {
   source = "../../modules/db"
   providers = {

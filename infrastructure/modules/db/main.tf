@@ -2,22 +2,15 @@ locals {
   table_name     = "guestbook_${var.environment}"
 }
 
-resource "aws_dynamodb_table" "guestbook_server" {
-  name           = local.table_name
-  read_capacity  = var.read_capacity
-  write_capacity = var.write_capacity
-  hash_key       = "ip"
-  range_key      = "ts"
-
-  attribute {
-    name = "ip"
-    type = "S"
-  }
-
-  attribute {
-    name = "ts"
-    type = "N"
-  }
+resource "aws_db_instance" "guestbook_server" {
+  allocated_storage = 10 #todo: allocated storage here
+  instance_class = "db.t3.micro"
+  db_name  = "todo: db name here"
+  username = "todo: username here"
+  password = "todo: password here"
+  engine = "todo: engine here"
+  engine_version = "todo: engine_version here"
+  skip_final_snapshot = true
 
   tags = {
     Environment = var.environment
@@ -25,7 +18,7 @@ resource "aws_dynamodb_table" "guestbook_server" {
 }
 
 /*
-Allow an ECS task and the local dev user to read and write to DynamoDB
+Allow an ECS task and the local dev user to read and write to RDS
 */
 resource "aws_iam_role" "dynamodb_data_access_role" {
   name               = "dynamodb_data_access_role_${var.environment}"
