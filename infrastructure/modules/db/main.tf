@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "dynamodb_data_access" {
         "secretsmanager:TagResource"
       ]
     resources = [
-      aws_dynamodb_table.guestbook_server.arn,
+      aws_db_instance.guestbook_server.arn,
       "arn:aws:secretsmanager:*:*:secret:rds-db-credentials/*"
     ]
   }

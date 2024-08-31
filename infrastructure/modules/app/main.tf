@@ -60,6 +60,6 @@ module "ecs" {
   server_image = var.server_image
   server_task_role_arn = module.db.role_arn
   vpc_id = module.vpc.vpc_id
-  dynamo_table_name = module.db.table_name
+  dynamo_table_name = var.db_name
 }
 
