@@ -8,6 +8,6 @@ module "guestbook" {
   client_image = var.client_image
   server_container_port = var.server_container_port
   client_container_port = var.client_container_port
-  dynamo_read_capacity = var.dynamo_read_capacity
-  dynamo_write_capacity = var.dynamo_write_capacity
+  db_username = var.db_username
+  db_password = var.db_password
 }

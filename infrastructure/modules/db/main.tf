@@ -3,13 +3,17 @@ locals {
 }
 
 resource "aws_db_instance" "guestbook_server" {
-  allocated_storage = 10 #todo: allocated storage here
+  allocated_storage = 10
   instance_class = "db.t3.micro"
-  db_name  = "todo: db name here"
-  username = "todo: username here"
-  password = "todo: password here"
-  engine = "todo: engine here"
-  engine_version = "todo: engine_version here"
+  db_name  = var.db_name
+  username = var.db_username
+  password = var.db_password
+  engine = "postgres"
+  engine_version = "16.1"
+  port = 5432
+  option_group_name = "default:postgres-16"
+  parameter_group_name = "postgres16"
+  
   skip_final_snapshot = true
 
   tags = {
@@ -55,21 +59,35 @@ data "aws_iam_policy_document" "dynamodb_data_access" {
   statement {
     effect = "Allow"
     actions = [
-      "dynamodb:CreateTable",
-      "dynamodb:BatchGetItem",
-      "dynamodb:BatchWriteItem",
-      "dynamodb:ListGlobalTables",
-      "dynamodb:PutItem",
-      "dynamodb:DescribeTable",
-      "dynamodb:ListTables",
-      "dynamodb:DeleteItem",
-      "dynamodb:GetItem",
-      "dynamodb:Query",
-      "dynamodb:UpdateItem",
-      "dynamodb:UpdateTable"
-    ]
+        "dbqms:CreateFavoriteQuery",
+        "dbqms:DescribeFavoriteQueries",
+        "dbqms:UpdateFavoriteQuery",
+        "dbqms:DeleteFavoriteQueries",
+        "dbqms:GetQueryString",
+        "dbqms:CreateQueryHistory",
+        "dbqms:DescribeQueryHistory",
+        "dbqms:UpdateQueryHistory",
+        "dbqms:DeleteQueryHistory",
+        "rds-data:ExecuteSql",
+        "rds-data:ExecuteStatement",
+        "rds-data:BatchExecuteStatement",
+        "rds-data:BeginTransaction",
+        "rds-data:CommitTransaction",
+        "rds-data:RollbackTransaction",
+        "secretsmanager:CreateSecret",
+        "secretsmanager:ListSecrets",
+        "secretsmanager:GetRandomPassword",
+        "tag:GetResources",
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:PutResourcePolicy",
+        "secretsmanager:PutSecretValue",
+        "secretsmanager:DeleteSecret",
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:TagResource"
+      ]
     resources = [
-      aws_dynamodb_table.guestbook_server.arn
+      aws_dynamodb_table.guestbook_server.arn,
+      "arn:aws:secretsmanager:*:*:secret:rds-db-credentials/*"
     ]
   }
 }

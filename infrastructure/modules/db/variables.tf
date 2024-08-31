@@ -3,15 +3,22 @@ variable "environment" {
   description = "the environment"
 }
 
-# todo: update me to postgres
-variable "read_capacity" {
-  type        = string
-  description = "the dynamo read throughput"
+variable "db_name" {
+  type = string
+  description = "the name of the postgres db"
+  default = "minesweeperdb"
 }
 
-variable "write_capacity" {
-  type        = string
-  description = "the dynamo write throughput"
+variable "db_username" {
+  type = string
+  description = "the username for the db"
+  default = "minesweeperuser"
+}
+
+variable "db_password" {
+  type = string
+  description = "the password for the db"
+  default = "minesweeperpassword"
 }
 
 variable "dev_user_arn" {

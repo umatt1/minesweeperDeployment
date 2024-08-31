@@ -32,7 +32,6 @@ module "nat" {
   }
 }
 
-# todo: update me to rds postgres
 module "db" {
   source = "../../modules/db"
   providers = {
@@ -40,8 +39,9 @@ module "db" {
   }
 
   environment = var.environment
-  read_capacity = var.dynamo_read_capacity
-  write_capacity = var.dynamo_write_capacity
+  db_name = var.db_name
+  db_username = var.db_username
+  db_password = var.db_password
 }
 
 module "ecs" {

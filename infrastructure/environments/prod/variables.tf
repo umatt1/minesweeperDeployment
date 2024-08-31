@@ -45,14 +45,20 @@ variable "client_container_port" {
   default     = 80
 }
 
-variable "dynamo_read_capacity" {
-  type        = string
-  description = "the dynamo read throughput"
-  default     = 15
+variable "db_name" {
+  type = string
+  description = "the name of the postgres db"
+  default = "minesweeperdb"
 }
 
-variable "dynamo_write_capacity" {
-  type        = string
-  description = "the dynamo write throughput"
-  default     = 15
+variable "db_username" {
+  type = string
+  description = "the username for the db"
+  default = "minesweeperuser"
+}
+
+variable "db_password" {
+  type = string
+  description = "the password for the db"
+  default = "minesweeperpassword"
 }
