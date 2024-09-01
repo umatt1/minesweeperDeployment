@@ -12,6 +12,7 @@ module "vpc" {
   azs             = var.availability_zones
   public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnets = ["10.0.101.0/24", "10.0.102.0/24"]
+  database_subnets = ["10.0.21.0/24", "10.0.22.0/24"]
 
   tags = {
     Environment = var.environment
@@ -42,6 +43,7 @@ module "db" {
   db_name = var.db_name
   db_username = var.db_username
   db_password = var.db_password
+  db_subnet_group_name = module.vpc.database_subnet_group
 }
 
 module "ecs" {

@@ -23,7 +23,7 @@ prod: $(prod_env)/.terraform
  		terraform apply -var-file=$(current_dir)/$(var-file)
 
 .PHONY: prod-down
-prod-down: $(prod_env)/.terraform client/node_modules
+prod-down:
 	cd ./$(prod_env); \
  		terraform destroy -var-file=$(current_dir)/$(var-file)
 

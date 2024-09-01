@@ -12,7 +12,8 @@ resource "aws_db_instance" "guestbook_server" {
   engine_version = "16.1"
   port = 5432
   option_group_name = "default:postgres-16"
-  parameter_group_name = "postgres16"
+  # parameter_group_name = "postgres16"
+  db_subnet_group_name = var.db_subnet_group_name
   
   skip_final_snapshot = true
 

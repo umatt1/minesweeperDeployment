@@ -26,3 +26,8 @@ variable "dev_user_arn" {
   description = "the arn of the IAM user for local development"
   default = ""
 }
+
+variable "db_subnet_group_name" {
+  type = string
+  description = "name of the DB subnet group"
+}
