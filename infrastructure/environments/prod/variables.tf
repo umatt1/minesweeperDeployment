@@ -36,13 +36,13 @@ variable "client_image" {
 variable "server_container_port" {
   type        = string
   description = "the port that the server serves from"
-  default     = 80
+  default     = 8080
 }
 
 variable "client_container_port" {
   type        = string
   description = "the port that the client serves from"
-  default     = 80
+  default     = 5173
 }
 
 variable "db_name" {
