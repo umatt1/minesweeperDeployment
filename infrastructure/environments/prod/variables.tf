@@ -24,13 +24,13 @@ variable "availability_zones" {
 variable "server_image" {
   type        = string
   description = "image name of the server app"
-  default     = "brietsparks/guestbook-server"
+  default     = "580548589113.dkr.ecr.us-east-2.amazonaws.com/sweeper:latest"
 }
 
 variable "client_image" {
   type        = string
   description = "image name of the client app"
-  default     = "brietsparks/guestbook-client"
+  default     = "580548589113.dkr.ecr.us-east-2.amazonaws.com/sweeperfront"
 }
 
 variable "server_container_port" {
