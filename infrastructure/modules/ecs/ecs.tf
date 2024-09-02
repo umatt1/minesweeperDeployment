@@ -103,6 +103,7 @@ resource "aws_ecs_task_definition" "guestbook_server" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
+        "awslogs-create-group": "true",
         "awslogs-group": "${aws_cloudwatch_log_group.guestbook_server.name}",
         "awslogs-region": "${var.region}",
         "awslogs-stream-prefix": "ecs"
@@ -153,6 +154,7 @@ resource "aws_ecs_task_definition" "guestbook_client" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
+        "awslogs-create-group": "true",
         "awslogs-group": "${aws_cloudwatch_log_group.guestbook_client.name}",
         "awslogs-region": "${var.region}",
         "awslogs-stream-prefix": "ecs"
