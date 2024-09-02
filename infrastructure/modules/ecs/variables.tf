@@ -30,12 +30,12 @@ variable "server_task_role_arn" {
 
 variable "server_image" {
   type        = string
-  description = "image name of the server app"
+  description = "580548589113.dkr.ecr.us-east-2.amazonaws.com/sweeper"
 }
 
 variable "client_image" {
   type        = string
-  description = "image name of the client app"
+  description = "580548589113.dkr.ecr.us-east-2.amazonaws.com/sweeperfront"
 }
 
 variable "server_container_port" {
