@@ -7,3 +7,8 @@ output "role_arn" {
 #   description = "the DynamoDB table name"
 #   value = local.table_name
 # }
+
+output "db_url" {
+  description = "url"
+  value = aws_db_instance.guestbook_server.address
+}

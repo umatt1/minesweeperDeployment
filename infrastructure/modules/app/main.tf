@@ -63,5 +63,9 @@ module "ecs" {
   server_task_role_arn = module.db.role_arn
   vpc_id = module.vpc.vpc_id
   dynamo_table_name = var.db_name
+  db_name = var.db_name
+  db_username = var.db_username
+  db_password = var.db_password
+  db_url = module.db.db_url
 }
 

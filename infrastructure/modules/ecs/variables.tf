@@ -52,3 +52,25 @@ variable "dynamo_table_name" {
   type = string
   description = "the DynamoDB table that the server talks to"
 }
+
+variable "db_username" {
+  type = string
+  description = "the username for the db"
+  default = "minesweeperuser"
+}
+
+variable "db_password" {
+  type = string
+  description = "the password for the db"
+  default = "minesweeperpassword"
+}
+
+variable "db_url" {
+  type = string
+  description = "url for the db"
+}
+
+variable "db_name"{
+  type = string
+  description = "the name of the db"
+}

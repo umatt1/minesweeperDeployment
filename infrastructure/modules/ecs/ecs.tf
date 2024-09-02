@@ -72,6 +72,18 @@ resource "aws_ecs_task_definition" "guestbook_server" {
     ],
     "environment": [
       {
+        "name": "DB_USERNAME",
+        "value": "${var.db_username}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${var.db_password}"
+      },
+      {
+        "name": "DB_URL",
+        "value": "jdbc:postgresql://${var.db_url}:5432/${var.db_name}"
+      },  
+      {
         "name": "SERVER_PORT",
         "value": "${var.server_container_port}"
       },
