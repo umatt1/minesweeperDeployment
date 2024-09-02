@@ -112,6 +112,10 @@ resource "aws_ecs_task_definition" "guestbook_server" {
 ]
 DEFINITION
 
+  runtime_platform {
+    cpu_architecture = "ARM64"
+  }
+
   tags = {
     Environment = var.environment
   }
@@ -157,6 +161,10 @@ resource "aws_ecs_task_definition" "guestbook_client" {
   }
 ]
 DEFINITION
+
+  runtime_platform {
+    cpu_architecture = "ARM64"
+  }
 
   tags = {
     Environment = var.environment
