@@ -32,6 +32,7 @@ resource "aws_iam_role_policy_attachment" "guestbook_task_execution" {
 
 // **** COPY / PASTE FROM COPILOT BELOW ****
 // Additional policy for ECR and CloudWatch Logs
+// write the policy
 data "aws_iam_policy_document" "additional_policies" {
   statement {
     actions = [
@@ -45,11 +46,13 @@ data "aws_iam_policy_document" "additional_policies" {
   }
 }
 
+// create the actual policy from above
 resource "aws_iam_policy" "additional_policies" {
   name   = "guestbook_task_additional_policies_${var.environment}"
   policy = data.aws_iam_policy_document.additional_policies.json
 }
 
+// attach the actual policy from above
 resource "aws_iam_role_policy_attachment" "guestbook_task_additional_policies" {
   role       = aws_iam_role.guestbook_task_execution.name
   policy_arn = aws_iam_policy.additional_policies.arn

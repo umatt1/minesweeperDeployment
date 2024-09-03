@@ -7,3 +7,8 @@ It is still in progress and I am actively learning in this repository.
 
 todo: check this out
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/resource-initialization-error.html#unable-to-pull-secrets-ecr
+https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/v5.13.0/examples/complete/main.tf
+^^^ look at this!!!
+https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/v5.13.0/examples/complete/main.tf#L132C1-L137C7
+https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/v5.13.0/examples/complete/main.tf#L132C1-L137C7
+https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/v5.13.0/examples/complete/main.tf#L132C1-L137C7
