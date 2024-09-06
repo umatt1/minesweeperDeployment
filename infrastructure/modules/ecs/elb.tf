@@ -46,7 +46,7 @@ resource "aws_alb_target_group" "guestbook_server" {
   depends_on  = [aws_alb.guestbook]
 
   health_check {
-    path                = "/api/v1/actuator/health"
+    path                = "/actuator/health"
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2
