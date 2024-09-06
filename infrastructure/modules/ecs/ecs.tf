@@ -149,6 +149,10 @@ resource "aws_ecs_task_definition" "guestbook_client" {
       {
         "name": "REACT_APP_SERVER_URL",
         "value": "http://${aws_alb.guestbook.dns_name}"
+      },
+      {
+        "name": "VITE_BACKEND_URL",
+        "value": "http://${aws_alb.guestbook.dns_name}:${var.server_container_port}"
       }
     ],
     "logConfiguration": {
