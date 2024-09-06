@@ -15,7 +15,7 @@ resource "aws_ecs_service" "guestbook_server" {
   name            = "guestbook_server_${var.environment}"
   cluster         = aws_ecs_cluster.guestbook.id
   task_definition = aws_ecs_task_definition.guestbook_server.arn
-  desired_count   = 2
+  desired_count   = 1
   launch_type     = "FARGATE"
 
   load_balancer {
@@ -33,7 +33,7 @@ resource "aws_ecs_service" "guestbook_client" {
   name            = "guestbook_client_${var.environment}"
   cluster         = aws_ecs_cluster.guestbook.id
   task_definition = aws_ecs_task_definition.guestbook_client.arn
-  desired_count   = 2
+  desired_count   = 1
   launch_type     = "FARGATE"
 
   load_balancer {
