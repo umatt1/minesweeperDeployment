@@ -3,6 +3,11 @@ output "role_arn" {
   value = aws_iam_role.dynamodb_data_access_role.arn
 }
 
+output "role_id" {
+  description = "the id of the role to be assumed when accessing the database"
+  value = aws_iam_role_policy.dynamodb_data_access.id
+}
+
 # output "table_name" {
 #   description = "the DynamoDB table name"
 #   value = local.table_name

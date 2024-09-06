@@ -14,19 +14,8 @@ module "vpc" {
   private_subnets = ["10.0.101.0/24", "10.0.102.0/24"]
   database_subnets = ["10.0.21.0/24", "10.0.22.0/24"]
 
-  tags = {
-    Environment = var.environment
-  }
-}
-
-module "nat" {
-  source                      = "int128/nat-instance/aws"
-  name                        = "guestbook_${var.environment}"
-  vpc_id                      = module.vpc.vpc_id
-  public_subnet               = module.vpc.public_subnets[0]
-  private_subnets_cidr_blocks = module.vpc.private_subnets_cidr_blocks
-  private_route_table_ids     = module.vpc.private_route_table_ids
-  use_spot_instance           = true
+  enable_nat_gateway = true
+  single_nat_gateway = true
 
   tags = {
     Environment = var.environment
@@ -68,4 +57,3 @@ module "ecs" {
   db_password = var.db_password
   db_url = module.db.db_url
 }
-
