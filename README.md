@@ -4,3 +4,8 @@ Currently, the backend is deploying and running. Next steps are connecting the f
 
 
 ![aws-arch-diagram](https://github.com/user-attachments/assets/0ea6865f-5711-40a5-8510-06fac849642c)
+
+
+Important todo:
+Update the container image!
+Hopefully this fixes the application context path! Perhaps health check failing due to /api/v1
