@@ -32,7 +32,7 @@ resource "aws_alb_listener_rule" "guestbook_server" {
 
   condition {
     path_pattern {
-      values = ["/items"]
+      values = ["/api/v1/"]
     }
   }
 }
@@ -46,7 +46,7 @@ resource "aws_alb_target_group" "guestbook_server" {
   depends_on  = [aws_alb.guestbook]
 
   health_check {
-    path                = "/actuator/health"
+    path                = "/api/v1/actuator/health"
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2

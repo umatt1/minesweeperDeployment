@@ -41,13 +41,13 @@ variable "client_image" {
 variable "server_container_port" {
   type        = string
   description = "the port that the server serves from"
-  default     = 8080
+  default     = 80
 }
 
 variable "client_container_port" {
   type        = string
   description = "the port that the client serves from"
-  default     = 5173
+  default     = 80
 }
 
 variable "local_user_name" {
