@@ -35,7 +35,7 @@ variable "server_image" {
 
 variable "client_image" {
   type        = string
-  description = "580548589113.dkr.ecr.us-east-2.amazonaws.com/sweeperfront"
+  description = "580548589113.dkr.ecr.us-east-2.amazonaws.com/sweeperfront2"
 }
 
 variable "server_container_port" {
