@@ -31,3 +31,8 @@ variable "db_subnet_group_name" {
   type = string
   description = "name of the DB subnet group"
 }
+
+variable "vpc_id" {
+  type = string
+  description = "the id of the vpc to run the ECS cluster in"
+}

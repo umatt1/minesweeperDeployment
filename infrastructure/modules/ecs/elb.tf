@@ -32,7 +32,7 @@ resource "aws_alb_listener_rule" "guestbook_server" {
 
   condition {
     path_pattern {
-      values = ["/api/v1/"]
+      values = ["/api/v1/*"]
     }
   }
 }
@@ -47,10 +47,10 @@ resource "aws_alb_target_group" "guestbook_server" {
 
   health_check {
     path                = "/api/v1/actuator/health"
-    interval            = 30
+    interval            = 60
     timeout             = 5
     healthy_threshold   = 2
-    unhealthy_threshold = 2
+    unhealthy_threshold = 3
     matcher             = "200-399"
   }
 
@@ -77,18 +77,34 @@ resource "aws_security_group" "guestbook" {
   description = "controls access to the load balancer"
   vpc_id      = var.vpc_id
 
+  #ingress {
+  #  protocol    = "tcp"
+  #  from_port   = 80
+  #  to_port     = 80
+  #  cidr_blocks = ["0.0.0.0/0"]
+  #}
+
+  #egress {
+  #  from_port   = 0
+  #  to_port     = 0
+  #  protocol    = "-1"
+  #  cidr_blocks = ["0.0.0.0/0"]
+  #}
+
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 80
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = {
