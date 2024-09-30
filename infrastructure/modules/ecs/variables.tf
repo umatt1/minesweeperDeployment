@@ -4,27 +4,27 @@ variable "region" {
 }
 
 variable "environment" {
-  type = string
+  type        = string
   description = "the environment"
 }
 
 variable "vpc_id" {
-  type = string
+  type        = string
   description = "the id of the vpc to run the ECS cluster in"
 }
 
 variable "private_subnets" {
-  type = list(string)
+  type        = list(string)
   description = "a list of cidr ranges of the private subnets to run the ECS tasks in"
 }
 
 variable "public_subnets" {
-  type = list(string)
+  type        = list(string)
   description = "a list of cidr ranges of the public subnets for the load balancer"
 }
 
 variable "server_task_role_arn" {
-  type = string
+  type        = string
   description = "the role arn for the server ECS task"
 }
 
@@ -49,28 +49,28 @@ variable "client_container_port" {
 }
 
 variable "dynamo_table_name" {
-  type = string
+  type        = string
   description = "the DynamoDB table that the server talks to"
 }
 
 variable "db_username" {
-  type = string
+  type        = string
   description = "the username for the db"
-  default = "minesweeperuser"
+  default     = "minesweeperuser"
 }
 
 variable "db_password" {
-  type = string
+  type        = string
   description = "the password for the db"
-  default = "minesweeperpassword"
+  default     = "minesweeperpassword"
 }
 
 variable "db_url" {
-  type = string
+  type        = string
   description = "url for the db"
 }
 
-variable "db_name"{
-  type = string
+variable "db_name" {
+  type        = string
   description = "the name of the db"
 }

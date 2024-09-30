@@ -1,22 +1,22 @@
 locals {
-  table_name     = "guestbook_${var.environment}"
+  table_name = "guestbook_${var.environment}"
 }
 
 resource "aws_db_instance" "guestbook_server" {
-  allocated_storage   = 10
-  instance_class      = "db.t3.micro"
-  db_name             = var.db_name
-  username            = var.db_username
-  password            = var.db_password
-  engine              = "postgres"
-  engine_version      = "16.1"
-  port                = 5432
-  option_group_name   = "default:postgres-16"
+  allocated_storage = 10
+  instance_class    = "db.t3.micro"
+  db_name           = var.db_name
+  username          = var.db_username
+  password          = var.db_password
+  engine            = "postgres"
+  engine_version    = "16.1"
+  port              = 5432
+  option_group_name = "default:postgres-16"
   # parameter_group_name = "postgres16"
   db_subnet_group_name = var.db_subnet_group_name
 
   publicly_accessible = false
-  
+
   skip_final_snapshot = true
 
   vpc_security_group_ids = [aws_security_group.rds_security_group.id]
@@ -48,18 +48,18 @@ resource "aws_security_group" "rds_security_group" {
   #}
 
   ingress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
 
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
 
@@ -86,11 +86,11 @@ data "aws_iam_policy_document" "rds_data_role_assumption" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
-      identifiers = ["ecs-tasks.amazonaws.com"]  # ECS tasks
+      identifiers = ["ecs-tasks.amazonaws.com"] # ECS tasks
       type        = "Service"
     }
     principals {
-      identifiers = var.dev_user_arn == "" ? [] : [var.dev_user_arn]  # Local user
+      identifiers = var.dev_user_arn == "" ? [] : [var.dev_user_arn] # Local user
       type        = "AWS"
     }
   }

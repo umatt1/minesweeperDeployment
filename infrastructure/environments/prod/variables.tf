@@ -46,19 +46,19 @@ variable "client_container_port" {
 }
 
 variable "db_name" {
-  type = string
+  type        = string
   description = "the name of the postgres db"
-  default = "minesweeperdb"
+  default     = "minesweeperdb"
 }
 
 variable "db_username" {
-  type = string
+  type        = string
   description = "the username for the db"
-  default = "minesweeperuser"
+  default     = "minesweeperuser"
 }
 
 variable "db_password" {
-  type = string
+  type        = string
   description = "the password for the db"
-  default = "minesweeperpassword"
+  default     = "minesweeperpassword"
 }

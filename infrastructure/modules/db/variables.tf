@@ -1,38 +1,38 @@
 variable "environment" {
-  type = string
+  type        = string
   description = "the environment"
 }
 
 variable "db_name" {
-  type = string
+  type        = string
   description = "the name of the postgres db"
-  default = "minesweeperdb"
+  default     = "minesweeperdb"
 }
 
 variable "db_username" {
-  type = string
+  type        = string
   description = "the username for the db"
-  default = "minesweeperuser"
+  default     = "minesweeperuser"
 }
 
 variable "db_password" {
-  type = string
+  type        = string
   description = "the password for the db"
-  default = "minesweeperpassword"
+  default     = "minesweeperpassword"
 }
 
 variable "dev_user_arn" {
-  type = string
+  type        = string
   description = "the arn of the IAM user for local development"
-  default = ""
+  default     = ""
 }
 
 variable "db_subnet_group_name" {
-  type = string
+  type        = string
   description = "name of the DB subnet group"
 }
 
 variable "vpc_id" {
-  type = string
+  type        = string
   description = "the id of the vpc to run the ECS cluster in"
 }
