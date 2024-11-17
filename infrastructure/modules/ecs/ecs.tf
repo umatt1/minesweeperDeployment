@@ -97,7 +97,7 @@ resource "aws_ecs_task_definition" "guestbook_server" {
       },
       {
         "name": "CLIENT_ORIGIN",
-        "value": "http://${aws_alb.guestbook.dns_name}"
+        "value": "https://minesweeple.com"
       }
     ],
     "logConfiguration": {
@@ -148,11 +148,11 @@ resource "aws_ecs_task_definition" "guestbook_client" {
     "environment": [
       {
         "name": "REACT_APP_SERVER_URL",
-        "value": "http://${aws_alb.guestbook.dns_name}"
+        "value": "https://minesweeple.com"
       },
       {
         "name": "VITE_BACKEND_URL",
-        "value": "http://${aws_alb.guestbook.dns_name}"
+        "value": "https://minesweeple.com"
       }
     ],
     "logConfiguration": {
@@ -193,83 +193,89 @@ resource "aws_cloudwatch_log_group" "guestbook_client" {
 
 resource "aws_security_group" "guestbook_server" {
   name        = "guestbook_server_${var.environment}"
-  description = "allow http access to fargate tasks"
+  description = "Security group for server ECS tasks"
   vpc_id      = var.vpc_id
 
   depends_on = [aws_alb.guestbook]
 
-  #ingress {
-  #  protocol        = "-1"
-  #  from_port       = 0
-  #  to_port         = 0
-  #  security_groups = [aws_security_group.guestbook.id] // not sure why ingress rule gets an array of sec groups
-  #}
-
-  #egress {
-  #  protocol    = "-1"
-  #  from_port   = 0
-  #  to_port     = 0
-  #  cidr_blocks = ["0.0.0.0/0"]
-  #}
-
+  # Allow inbound traffic from ALB
   ingress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    protocol        = "tcp"
+    from_port       = var.server_container_port
+    to_port         = var.server_container_port
+    security_groups = [aws_security_group.guestbook.id]
+    description     = "Allow inbound traffic from ALB"
   }
 
+  # Allow outbound to RDS
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    protocol    = "tcp"
+    from_port   = 5432
+    to_port     = 5432
+    cidr_blocks = ["10.0.21.0/24", "10.0.22.0/24"]  # Database subnets
+    description = "Allow outbound to RDS"
+  }
+
+  # Allow outbound for DNS
+  egress {
+    protocol    = "udp"
+    from_port   = 53
+    to_port     = 53
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow DNS resolution"
+  }
+
+  # Allow outbound HTTPS for AWS API calls
+  egress {
+    protocol    = "tcp"
+    from_port   = 443
+    to_port     = 443
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow HTTPS for AWS API calls"
   }
 
   tags = {
     Environment = var.environment
+    Name        = "minesweeple-server-${var.environment}"
   }
 }
 
 resource "aws_security_group" "guestbook_client" {
   name        = "guestbook_client_${var.environment}"
-  description = "allow http access to fargate tasks"
+  description = "Security group for client ECS tasks"
   vpc_id      = var.vpc_id
 
   depends_on = [aws_alb.guestbook]
 
-  #ingress {
-  #  protocol        = "-1"
-  #  from_port       = var.client_container_port
-  #  to_port         = var.client_container_port
-  #  security_groups = [aws_security_group.guestbook.id] // not sure why ingress rule gets an array of sec groups
-  #}
-
-  #egress {
-  #  protocol    = "-1"
-  #  from_port   = 0
-  #  to_port     = 0
-  #  cidr_blocks = ["0.0.0.0/0"]
-  #}
+  # Allow inbound traffic from ALB
   ingress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    protocol        = "tcp"
+    from_port       = var.client_container_port
+    to_port         = var.client_container_port
+    security_groups = [aws_security_group.guestbook.id]
+    description     = "Allow inbound traffic from ALB"
   }
 
+  # Allow outbound for DNS
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    protocol    = "udp"
+    from_port   = 53
+    to_port     = 53
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow DNS resolution"
+  }
+
+  # Allow outbound HTTPS for static assets and external resources
+  egress {
+    protocol    = "tcp"
+    from_port   = 443
+    to_port     = 443
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow HTTPS for static assets and external resources"
   }
 
   tags = {
     Environment = var.environment
+    Name        = "minesweeple-client-${var.environment}"
   }
 }
