@@ -105,6 +105,12 @@ resource "aws_alb_target_group" "guestbook_server" {
   target_type = "ip"
   depends_on  = [aws_alb.guestbook]
 
+  stickiness {
+    type = "lb_cookie"
+    cookie_duration = 86400
+    enabled = true
+  }
+
   health_check {
     path                = "/api/v1/actuator/health"
     interval            = 60

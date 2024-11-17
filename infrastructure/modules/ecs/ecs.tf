@@ -97,7 +97,7 @@ resource "aws_ecs_task_definition" "guestbook_server" {
       },
       {
         "name": "CLIENT_ORIGIN",
-        "value": "http://${aws_alb.guestbook.dns_name}"
+        "value": "http://${aws_alb.guestbook.dns_name},https://minesweeple.com"
       }
     ],
     "logConfiguration": {
