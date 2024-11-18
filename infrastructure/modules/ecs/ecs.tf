@@ -17,6 +17,7 @@ resource "aws_ecs_service" "guestbook_server" {
   task_definition = aws_ecs_task_definition.guestbook_server.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  health_check_grace_period_seconds = 120  # Give 2 minutes for the application to start
 
   load_balancer {
     target_group_arn = aws_alb_target_group.guestbook_server.arn
