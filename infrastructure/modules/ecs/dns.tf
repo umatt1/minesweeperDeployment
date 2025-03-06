@@ -9,7 +9,7 @@ resource "aws_route53_record" "root" {
 
   alias {
     name                   = aws_alb.guestbook.dns_name
-    zone_id               = aws_alb.guestbook.zone_id
+    zone_id                = aws_alb.guestbook.zone_id
     evaluate_target_health = true
   }
 }

@@ -6,24 +6,25 @@ provider "aws" {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "guestbook_${var.environment}"
-  cidr = "10.0.0.0/16"
+  name = "${var.application_name}_${var.environment}"
+  cidr = var.vpc_cidr
 
   azs              = var.availability_zones
-  public_subnets   = ["10.0.1.0/24", "10.0.2.0/24"]
-  private_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
-  database_subnets = ["10.0.21.0/24", "10.0.22.0/24"]
+  public_subnets   = var.public_subnet_cidrs
+  private_subnets  = var.private_subnet_cidrs
+  database_subnets = var.database_subnet_cidrs
 
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  enable_nat_gateway = var.enable_nat_gateway
+  single_nat_gateway = var.single_nat_gateway
 
-  tags = {
+  tags = merge(var.tags, {
     Environment = var.environment
-  }
+    Name        = "${var.application_name}-vpc-${var.environment}"
+  })
 }
 
 module "db" {
-  source = "../../modules/db"
+  source = "../db"
   providers = {
     aws = aws
   }
@@ -34,14 +35,21 @@ module "db" {
   db_password          = var.db_password
   db_subnet_group_name = module.vpc.database_subnet_group
   vpc_id               = module.vpc.vpc_id
+
+  tags = merge(var.tags, {
+    Environment = var.environment
+    Name        = "${var.application_name}-db-${var.environment}"
+  })
 }
 
 module "ecs" {
-  source = "../../modules/ecs"
+  source = "../ecs"
   providers = {
     aws = aws
   }
-  environment = var.environment
+
+  environment      = var.environment
+  application_name = var.application_name
 
   client_container_port = var.client_container_port
   client_image          = var.client_image
@@ -57,4 +65,9 @@ module "ecs" {
   db_username           = var.db_username
   db_password           = var.db_password
   db_url                = module.db.db_url
+
+  tags = merge(var.tags, {
+    Environment = var.environment
+    Name        = "${var.application_name}-ecs-${var.environment}"
+  })
 }

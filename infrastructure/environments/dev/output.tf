@@ -1,11 +1,11 @@
 output "table_name" {
   description = "the DynamoDB table name"
-  value = module.db.table_name
+  value       = module.db.table_name
 }
 
 output "cli_config" {
   description = "the config to set locally for the user and role"
-  value = <<EOF
+  value       = <<EOF
 
 [${var.local_user_name}]
 region = ${var.region}

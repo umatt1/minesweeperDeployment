@@ -36,3 +36,9 @@ variable "vpc_id" {
   type        = string
   description = "the id of the vpc to run the ECS cluster in"
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "A map of tags to apply to all resources"
+  default     = {}
+}

@@ -12,12 +12,12 @@ resource "aws_ecs_cluster" "guestbook" {
 }
 
 resource "aws_ecs_service" "guestbook_server" {
-  name            = "guestbook_server_${var.environment}"
-  cluster         = aws_ecs_cluster.guestbook.id
-  task_definition = aws_ecs_task_definition.guestbook_server.arn
-  desired_count   = 1
-  launch_type     = "FARGATE"
-  health_check_grace_period_seconds = 120  # Give 2 minutes for the application to start
+  name                              = "guestbook_server_${var.environment}"
+  cluster                           = aws_ecs_cluster.guestbook.id
+  task_definition                   = aws_ecs_task_definition.guestbook_server.arn
+  desired_count                     = 1
+  launch_type                       = "FARGATE"
+  health_check_grace_period_seconds = 120 # Give 2 minutes for the application to start
 
   load_balancer {
     target_group_arn = aws_alb_target_group.guestbook_server.arn
@@ -213,7 +213,7 @@ resource "aws_security_group" "guestbook_server" {
     protocol    = "tcp"
     from_port   = 5432
     to_port     = 5432
-    cidr_blocks = ["10.0.21.0/24", "10.0.22.0/24"]  # Database subnets
+    cidr_blocks = ["10.0.21.0/24", "10.0.22.0/24"] # Database subnets
     description = "Allow outbound to RDS"
   }
 

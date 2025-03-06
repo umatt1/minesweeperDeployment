@@ -56,3 +56,17 @@ variable "dynamo_write_capacity" {
   description = "the dynamo write throughput"
   default     = 15
 }
+
+variable "db_username" {
+  type        = string
+  description = "Username for database access"
+  default     = "testuser"
+  sensitive   = true
+}
+
+variable "db_password" {
+  type        = string
+  description = "Password for database access"
+  default     = "testpassword"
+  sensitive   = true
+}

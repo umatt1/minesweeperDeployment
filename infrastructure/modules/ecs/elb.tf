@@ -97,9 +97,9 @@ resource "aws_alb_target_group" "guestbook_server" {
   depends_on  = [aws_alb.guestbook]
 
   stickiness {
-    type = "lb_cookie"
+    type            = "lb_cookie"
     cookie_duration = 86400
-    enabled = true
+    enabled         = true
   }
 
   health_check {
@@ -109,8 +109,8 @@ resource "aws_alb_target_group" "guestbook_server" {
     healthy_threshold   = 2
     unhealthy_threshold = 5
     matcher             = "200-399"
-    port               = "traffic-port"
-    protocol           = "HTTP"
+    port                = "traffic-port"
+    protocol            = "HTTP"
   }
 
   tags = {
@@ -159,7 +159,7 @@ resource "aws_security_group" "guestbook" {
     protocol    = "-1"
     from_port   = 0
     to_port     = 0
-    cidr_blocks = ["10.0.0.0/16"]  # VPC CIDR
+    cidr_blocks = ["10.0.0.0/16"] # VPC CIDR
     description = "Allow all outbound traffic to VPC"
   }
 

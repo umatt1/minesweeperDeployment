@@ -11,54 +11,56 @@
 //
 variable "region" {
   type        = string
-  description = "an aws region"
+  description = "AWS region to deploy into"
   default     = "us-east-2"
 }
 
 variable "availability_zones" {
   type        = list(string)
-  description = "array of aws availability zones of the provided region"
+  description = "List of AWS availability zones in the region"
   default     = ["us-east-2a", "us-east-2b"]
 }
 
 variable "server_image" {
   type        = string
-  description = "image name of the server app"
+  description = "Docker image for the server application"
   default     = "580548589113.dkr.ecr.us-east-2.amazonaws.com/sweeper:latest"
 }
 
 variable "client_image" {
   type        = string
-  description = "image name of the client app"
+  description = "Docker image for the client application"
   default     = "580548589113.dkr.ecr.us-east-2.amazonaws.com/sweeperfront2:latest"
 }
 
 variable "server_container_port" {
-  type        = string
-  description = "the port that the server serves from"
+  type        = number
+  description = "Port that the server application listens on"
   default     = 80
 }
 
 variable "client_container_port" {
-  type        = string
-  description = "the port that the client serves from"
+  type        = number
+  description = "Port that the client application listens on"
   default     = 80
 }
 
 variable "db_name" {
   type        = string
-  description = "the name of the postgres db"
+  description = "Name of the database"
   default     = "minesweeperdb"
 }
 
 variable "db_username" {
   type        = string
-  description = "the username for the db"
+  description = "Username for database access"
   default     = "minesweeperuser"
+  sensitive   = true
 }
 
 variable "db_password" {
   type        = string
-  description = "the password for the db"
+  description = "Password for database access"
   default     = "minesweeperpassword"
+  sensitive   = true
 }

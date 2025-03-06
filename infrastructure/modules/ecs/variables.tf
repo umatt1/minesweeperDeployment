@@ -8,6 +8,12 @@ variable "environment" {
   description = "the environment"
 }
 
+variable "application_name" {
+  type        = string
+  description = "The name of the application"
+  default     = "webapp"
+}
+
 variable "vpc_id" {
   type        = string
   description = "the id of the vpc to run the ECS cluster in"
@@ -73,4 +79,10 @@ variable "db_url" {
 variable "db_name" {
   type        = string
   description = "the name of the db"
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "A map of tags to apply to all resources"
+  default     = {}
 }

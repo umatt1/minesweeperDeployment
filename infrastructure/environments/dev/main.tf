@@ -12,17 +12,40 @@ locals {
 
 provider "aws" {
   #profile = var.profile
-  region  = var.region
+  region = var.region
 }
 
-module "db" {
-  source = "../../modules/db"
-  providers = {
-    aws = aws
-  }
+module "webapp" {
+  source = "../../modules/app"
 
-  environment = local.environment
-  read_capacity = var.dynamo_read_capacity
-  write_capacity = var.dynamo_write_capacity
-  dev_user_arn = aws_iam_user.local_dev_user.arn
+  application_name   = "minesweeper"
+  environment        = "dev"
+  region             = var.region
+  availability_zones = var.availability_zones
+
+  # Use local development images or override with your own
+  server_image          = var.server_image
+  client_image          = var.client_image
+  server_container_port = var.server_container_port
+  client_container_port = var.client_container_port
+
+  # Database configuration - use less secure defaults for dev
+  db_name     = var.db_name
+  db_username = var.db_username
+  db_password = var.db_password
+
+  # Development environment might use smaller network settings
+  vpc_cidr              = "10.1.0.0/16" # Different from prod
+  public_subnet_cidrs   = ["10.1.1.0/24", "10.1.2.0/24"]
+  private_subnet_cidrs  = ["10.1.101.0/24", "10.1.102.0/24"]
+  database_subnet_cidrs = ["10.1.21.0/24", "10.1.22.0/24"]
+
+  # For development, we might want to use cheaper infrastructure
+  single_nat_gateway = true
+
+  tags = {
+    Project     = "Minesweeper Deployment"
+    ManagedBy   = "Terraform"
+    Environment = "dev"
+  }
 }

@@ -1,19 +1,16 @@
-//
-// required
-//
-# variable "profile" {
-#   type        = string
-#   description = "an aws profile to act on behalf of terraform"
-# }
-
+// Required variables
 variable "environment" {
   type        = string
   description = "The deployment environment (e.g., dev, test, prod)"
 }
 
-//
-// optional
-//
+variable "application_name" {
+  type        = string
+  description = "The name of the application"
+  default     = "webapp"
+}
+
+// Network variables
 variable "region" {
   type        = string
   description = "AWS region to deploy into"
@@ -62,6 +59,7 @@ variable "single_nat_gateway" {
   default     = true
 }
 
+// Application variables
 variable "server_image" {
   type        = string
   description = "Docker image for the server application"
@@ -84,12 +82,7 @@ variable "client_container_port" {
   default     = 80
 }
 
-variable "local_user_name" {
-  type        = string
-  description = "the name of the IAM user for local development"
-  default     = "local_dev_user"
-}
-
+// Database variables
 variable "db_name" {
   type        = string
   description = "Name of the database"
@@ -108,14 +101,9 @@ variable "db_password" {
   sensitive   = true
 }
 
-variable "application_name" {
-  type        = string
-  description = "The name of the application"
-  default     = "webapp"
-}
-
+// Tagging
 variable "tags" {
   type        = map(string)
   description = "A map of tags to apply to all resources"
   default     = {}
-}
+} 
