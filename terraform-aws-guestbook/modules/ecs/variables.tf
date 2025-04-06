@@ -74,3 +74,27 @@ variable "db_name" {
   type        = string
   description = "the name of the db"
 }
+
+variable "domain_name" {
+  type        = string
+  description = "Domain name for the application (e.g., example.com)"
+  default     = null
+}
+
+variable "create_route53_zone" {
+  type        = bool
+  description = "Whether to create a new Route 53 hosted zone"
+  default     = false
+}
+
+variable "route53_zone_id" {
+  type        = string
+  description = "ID of an existing Route 53 hosted zone to use"
+  default     = null
+}
+
+variable "enable_dns" {
+  type        = bool
+  description = "Whether to enable DNS configuration"
+  default     = true
+}

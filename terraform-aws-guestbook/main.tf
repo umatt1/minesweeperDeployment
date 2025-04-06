@@ -52,4 +52,7 @@ module "ecs" {
   db_username          = var.db_username
   db_password          = var.db_password
   db_url               = module.db.db_url
+  domain_name          = var.domain_name
+  create_route53_zone  = var.create_route53_zone
+  route53_zone_id      = var.route53_zone_id
 } 
