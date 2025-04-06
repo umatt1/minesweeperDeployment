@@ -1,6 +1,6 @@
 output "alb_dns_host" {
   description = "The DNS name of the application load balancer"
-  value       = module.ecs.alb_dns_host
+  value       = module.ecs.alb_dns_name
 }
 
 output "db_url" {
