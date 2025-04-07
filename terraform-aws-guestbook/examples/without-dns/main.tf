@@ -10,8 +10,8 @@ module "guestbook" {
 
   # Database configuration
   db_name     = "guestbook"
-  db_username = "admin"
-  db_password = "change-me-in-production"  # In production, use AWS Secrets Manager or similar
+  db_username = "guestbookadmin"
+  db_password = "Guestbook123!"  # More secure password for testing
 
   # Optional configurations with default values
   availability_zones    = ["us-east-2a", "us-east-2b"]

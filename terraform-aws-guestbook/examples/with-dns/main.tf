@@ -21,9 +21,9 @@ module "guestbook" {
   server_container_port = 80
 
   # DNS Configuration
-  domain_name = "example.com"  # Replace with your domain
-  create_route53_zone = true   # Set to false if using an existing zone
-  # route53_zone_id = "Z1234567890"  # Uncomment and set if using existing zone
+  domain_name = "guestbook.example.com"  # Using a subdomain
+  create_route53_zone = false   # We'll use an existing zone
+  route53_zone_id = "Z1234567890"  # This will need to be replaced with your actual zone ID
 }
 
 output "application_url" {

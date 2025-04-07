@@ -9,10 +9,8 @@ resource "aws_db_instance" "guestbook_server" {
   username          = var.db_username
   password          = var.db_password
   engine            = "postgres"
-  engine_version    = "16.1"
+  engine_version    = "15.12"
   port              = 5432
-  option_group_name = "default:postgres-16"
-  # parameter_group_name = "postgres16"
   db_subnet_group_name = var.db_subnet_group_name
 
   publicly_accessible = false
