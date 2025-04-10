@@ -1,3 +1,8 @@
+variable "vpc_id" {
+  description = "The VPC ID where the database will be deployed"
+  type        = string
+}
+
 resource "aws_iam_user" "local_dev_user" {
   name = var.local_user_name
 }
@@ -22,7 +27,7 @@ module "db" {
   }
 
   environment = local.environment
-  read_capacity = var.dynamo_read_capacity
-  write_capacity = var.dynamo_write_capacity
+  db_subnet_group_name = "dev-db-subnet-group"
+  vpc_id = var.vpc_id
   dev_user_arn = aws_iam_user.local_dev_user.arn
 }

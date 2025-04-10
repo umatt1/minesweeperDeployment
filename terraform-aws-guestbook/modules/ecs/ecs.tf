@@ -127,47 +127,44 @@ resource "aws_ecs_task_definition" "guestbook_client" {
   family                   = "guestbook-client-${var.environment}"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = 256
-  memory                   = 512
+  cpu                      = "256"
+  memory                   = "512"
   execution_role_arn       = aws_iam_role.guestbook_task_execution.arn
 
-  container_definitions = <<DEFINITION
-[
-  {
-    "image": "${var.client_image}",
-    "cpu": 256,
-    "memory": 512,
-    "name": "${local.client_container_name}",
-    "networkMode": "awsvpc",
-    "portMappings": [
-      {
-        "containerPort": ${var.client_container_port},
-        "hostPort": ${var.client_container_port},
-        "protocol": "tcp"
-      }
-    ],
-    "environment": [
-      {
-        "name": "REACT_APP_SERVER_URL",
-        "value": "https://minesweeple.com"
-      },
-      {
-        "name": "VITE_BACKEND_URL",
-        "value": "https://minesweeple.com"
-      }
-    ],
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-create-group": "true",
-        "awslogs-group": "${aws_cloudwatch_log_group.guestbook_client.name}",
-        "awslogs-region": "${var.region}",
-        "awslogs-stream-prefix": "ecs"
+  container_definitions = jsonencode([
+    {
+      name      = "guestbook_client"
+      image     = var.client_image
+      cpu       = 256
+      memory    = 512
+      essential = true
+      portMappings = [
+        {
+          containerPort = tonumber(var.client_container_port)
+          hostPort      = tonumber(var.client_container_port)
+          protocol      = "tcp"
+        }
+      ]
+      environment = [
+        {
+          name  = "REACT_APP_SERVER_URL"
+          value = "http://${aws_alb.guestbook.dns_name}"
+        },
+        {
+          name  = "VITE_BACKEND_URL"
+          value = "http://${aws_alb.guestbook.dns_name}"
+        }
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = "/fargate/service/guestbook-client-${var.environment}"
+          awslogs-region        = var.region
+          awslogs-stream-prefix = "ecs"
+        }
       }
     }
-  }
-]
-DEFINITION
+  ])
 
   runtime_platform {
     cpu_architecture = "ARM64"

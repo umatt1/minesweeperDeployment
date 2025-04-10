@@ -53,4 +53,28 @@ variable "server_container_port" {
   description = "Port for the server container"
   type        = number
   default     = 80
+}
+
+variable "domain_name" {
+  description = "Domain name for the application (e.g., example.com)"
+  type        = string
+  default     = null
+}
+
+variable "create_route53_zone" {
+  description = "Whether to create a new Route 53 hosted zone"
+  type        = bool
+  default     = false
+}
+
+variable "route53_zone_id" {
+  description = "ID of an existing Route 53 hosted zone to use"
+  type        = string
+  default     = null
+}
+
+variable "enable_dns" {
+  description = "Whether to enable DNS configuration"
+  type        = bool
+  default     = true
 } 
